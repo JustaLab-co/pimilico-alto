@@ -156,6 +156,14 @@ ifeq ($(findstring --network arc-mainnet,$(ARGS)),--network arc-mainnet)
 	NETWORK_ARGS := --rpc-url $(ARC_MAINNET_RPC_URL) --account $(ACCOUNT) --broadcast --verify --verifier etherscan --verifier-url "https://api.etherscan.io/v2/api?chainid=5042" --etherscan-api-key $(ETHERSCAN_API_KEY) -vvvv
 endif
 
+ifeq ($(findstring --network hyperevm-mainnet,$(ARGS)),--network hyperevm-mainnet)
+	NETWORK_ARGS := --rpc-url $(HYPEREVM_MAINNET_RPC_URL) --account $(ACCOUNT) --broadcast --verify --verifier etherscan --verifier-url "https://api.etherscan.io/v2/api?chainid=999" --etherscan-api-key $(ETHERSCAN_API_KEY) -vvvv
+endif
+
+ifeq ($(findstring --network citrea-mainnet,$(ARGS)),--network citrea-mainnet)
+	NETWORK_ARGS := --rpc-url $(CITREA_MAINNET_RPC_URL) --account $(ACCOUNT) --broadcast --verify --verifier blockscout --verifier-url https://explorer.mainnet.citrea.xyz/api --chain 4114 -vvvv
+endif
+
 deploy-mainnet:
 	@forge script script/DeploySimulations.s.sol:DeploySimulations $(NETWORK_ARGS)
 
@@ -247,4 +255,10 @@ deploy-monad-mainnet:
 	@forge script script/DeploySimulations.s.sol:DeploySimulations $(NETWORK_ARGS)
 
 deploy-arc-mainnet:
+	@forge script script/DeploySimulations.s.sol:DeploySimulations $(NETWORK_ARGS)
+
+deploy-hyperevm-mainnet:
+	@forge script script/DeploySimulations.s.sol:DeploySimulations $(NETWORK_ARGS)
+
+deploy-citrea-mainnet:
 	@forge script script/DeploySimulations.s.sol:DeploySimulations $(NETWORK_ARGS)
